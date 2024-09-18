@@ -28,6 +28,7 @@ const GenreList = ({ onSelectGenre, selectedGenre }: Props) => {
               <Button
                 onClick={() => onSelectGenre(genre)}
                 fontSize="large"
+                overflow={"hidden"}
                 variant={genre.id === selectedGenre?.id ? "outline" : "ghost"}
               >
                 {genre.name}
