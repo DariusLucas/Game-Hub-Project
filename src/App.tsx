@@ -18,6 +18,7 @@ export interface GameQuery {
 
 function App() {
   const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery);
+  const [selectedFilters, setSelectedFilters] = useState(false);
 
   return (
     <>
@@ -41,8 +42,12 @@ function App() {
         <Show above="lg">
           <GridItem area="aside" paddingX={5}>
             <GenreList
+              selectedFilters={selectedFilters}
               selectedGenre={gameQuery.genre}
-              onSelectGenre={(genre) => setGameQuery({ ...gameQuery, genre })}
+              onSelectGenre={(genre) => {
+                setSelectedFilters(true);
+                setGameQuery({ ...gameQuery, genre });
+              }}
             />
           </GridItem>
         </Show>
@@ -52,9 +57,10 @@ function App() {
           <Flex gap={5} paddingLeft={10}>
             <PlatformSelector
               selectedPlatform={gameQuery.platform}
-              onSelectPlatform={(platform) =>
-                setGameQuery({ ...gameQuery, platform })
-              }
+              onSelectPlatform={(platform) => {
+                setSelectedFilters(true);
+                setGameQuery({ ...gameQuery, platform });
+              }}
             />
             <SortSelector
               sortOrder={gameQuery.sortOrder}

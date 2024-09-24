@@ -13,9 +13,14 @@ import { Spinner } from "@chakra-ui/react";
 interface Props {
   onSelectGenre: (genre: Genre) => void;
   selectedGenre: Genre | null;
+  selectedFilters: boolean;
 }
 
-const GenreList = ({ onSelectGenre, selectedGenre }: Props) => {
+const GenreList = ({
+  onSelectGenre,
+  selectedGenre,
+  selectedFilters,
+}: Props) => {
   const { data, isLoading, error } = useGenres();
 
   if (error) return null;
@@ -24,10 +29,12 @@ const GenreList = ({ onSelectGenre, selectedGenre }: Props) => {
   return (
     <>
       <Heading>Genres</Heading>
-      <List>
-        <Button marginY={5} onClick={() => location.reload()}>
-          Clear Filters
-        </Button>
+      <List marginTop={5}>
+        {selectedFilters && (
+          <Button marginBottom={3} onClick={() => location.reload()}>
+            Clear Filters
+          </Button>
+        )}
         {data.map((genre) => (
           <ListItem key={genre.id} paddingY={"5px"}>
             <HStack>
@@ -38,7 +45,9 @@ const GenreList = ({ onSelectGenre, selectedGenre }: Props) => {
                 src={GetCroppedImageUrl(genre.image_background)}
               />
               <Button
-                onClick={() => onSelectGenre(genre)}
+                onClick={() => {
+                  onSelectGenre(genre);
+                }}
                 fontSize="large"
                 whiteSpace="normal"
                 textAlign="left"
