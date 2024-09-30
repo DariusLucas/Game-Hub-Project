@@ -17,7 +17,7 @@ const ColorModeSwitch = () => {
         onChange={toggleColorMode}
         whiteSpace="nowrap"
         cursor="pointer"
-        fontFamily="cursive"
+        fontWeight="bold"
       >
         Dark Mode
       </Switch>
